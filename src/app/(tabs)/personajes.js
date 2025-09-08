@@ -3,9 +3,11 @@ import { globalStyles } from "../../styles";
 import Card from "../../components/Card";
 import { useCharacter } from "../../hooks/useChararcters";
 import { FlatList } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Personajes() {
     const { characters, loading, error } = useCharacter();
+    const router = useRouter();
 
     if (loading) return <ActivityIndicator size="large" />;
     if (error) return <Text>Error: {error}</Text>;
@@ -20,7 +22,7 @@ export default function Personajes() {
                         title={item.name}
                         subtitle={item.gender}
                         image={item.image}
-                        onPress={console.log(item.name)}
+                        onPress={() => router.push(`/personaje/${item.id}`)} // <-- aquí
                     />
                 )
                 }
