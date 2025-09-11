@@ -1,15 +1,24 @@
 // components/Card.js
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../styles";
 
-
-export default function Card({ title, subtitle, image, onPress }) {
+export default function Card({ title, subtitle, image, onPress, onFavorite, isFavorite }) {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
             {image && <Image source={{ uri: image }} style={styles.image} />}
             <View style={styles.content}>
-                <Text style={styles.title}>{title}</Text>
+                <View style={styles.headerRow}>
+                    <Text style={styles.title}>{title}</Text>
+                    <TouchableOpacity onPress={onFavorite}>
+                        <Ionicons
+                            name={isFavorite ? "heart" : "heart-outline"}
+                            size={24}
+                            color={isFavorite ? "red" : "#666"}
+                        />
+                    </TouchableOpacity>
+                </View>
                 {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
             </View>
         </TouchableOpacity>
@@ -35,6 +44,11 @@ const styles = StyleSheet.create({
     },
     content: {
         padding: 12
+    },
+    headerRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     title: {
         fontSize: 18,
