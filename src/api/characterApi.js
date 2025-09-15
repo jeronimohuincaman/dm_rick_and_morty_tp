@@ -1,7 +1,7 @@
 import api from "./clients";
 
-export const getCharacters = async () => {
-    const response = await api.get("/character");
+export const getCharacters = async (filter) => {
+    const response = await api.get("/character" + filter);
     return response.data;
 }
 
