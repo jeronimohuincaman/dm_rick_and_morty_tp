@@ -3,9 +3,12 @@ import { globalStyles } from "../../styles";
 import { useFavoritos } from "../../context/FavoritosContext";
 import Card from "../../components/Card";
 import { useRouter } from "expo-router";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Favoritos() {
     const router = useRouter();
+    const { isDarkMode, toggleTheme, colors } = useTheme(); // Contexto del tema
+
     const { favoritos, dispatch } = useFavoritos();
 
     const toggleFavorito = (item) => {
@@ -18,7 +21,7 @@ export default function Favoritos() {
 
     if (favoritos.length === 0) {
         return (
-            <View style={globalStyles.container}>
+            <View style={[globalStyles.container, { backgroundColor: colors.primary }]}>
                 <Text style={globalStyles.title}> No hay personajes favoritos ;( </Text>
             </View>
         );
@@ -26,7 +29,7 @@ export default function Favoritos() {
 
 
     return (
-        <View style={globalStyles.container}>
+        <View style={[globalStyles.container, { backgroundColor: colors.primary }]}>
             <FlatList
                 data={favoritos}
                 keyExtractor={(item) => item.id.toString()}

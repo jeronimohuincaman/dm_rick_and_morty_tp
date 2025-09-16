@@ -1,17 +1,19 @@
 // app/(tabs)/_layout.js
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../../styles";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function TabsLayout() {
+    const { isDarkMode, toggleTheme, colors } = useTheme(); // Contexto del tema
+
     return (
         <Tabs
             screenOptions={{
-                headerStyle: { backgroundColor: colors.text },
-                headerTintColor: colors.background,
+                headerStyle: { backgroundColor: colors.backgroundColor },
+                headerTintColor: colors.text,
                 headerTitleStyle: { fontWeight: "bold", fontSize: 20 },
-                tabBarStyle: { backgroundColor: colors.text },
-                tabBarActiveTintColor: colors.background,
+                tabBarStyle: { backgroundColor: colors.backgroundColor },
+                tabBarActiveTintColor: colors.text,
                 tabBarInactiveTintColor: "#999",
             }}
         >
@@ -30,6 +32,15 @@ export default function TabsLayout() {
                     title: "Favoritos",
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="heart-outline" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="configuracion"
+                options={{
+                    title: "Configuración",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="settings-outline" size={size} color={color} />
                     ),
                 }}
             />

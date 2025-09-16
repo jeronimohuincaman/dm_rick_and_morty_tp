@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../styles";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Filter({ options = [], onSelect }) {
+    const { isDarkMode, toggleTheme, colors } = useTheme(); // Contexto del tema
     const [visible, setVisible] = useState(false);
 
     const handleSelect = (option) => {
@@ -13,37 +14,22 @@ export default function Filter({ options = [], onSelect }) {
     };
 
     return (
-        <View style={styles.container}>
-            {/* Botón principal */}
+        <View style={[styles.container]}>
             <TouchableOpacity
-                style={styles.button}
+                style={[styles.button, { backgroundColor: colors.backgroundColor }]}
                 onPress={() => setVisible((prev) => !prev)}
             >
-                <Text style={styles.buttonText}>Filtros</Text>
-                <Ionicons
-                    name="filter"
-                    size={20}
-                    color={colors.background}
-                    style={styles.icon}
-                />
+                <Text style={[styles.buttonText, { color: colors.text }]}>Filtros</Text>
+                <Ionicons name="filter" size={24} color={colors.text} style={styles.icon} />
             </TouchableOpacity>
 
-
-            {/* Opciones */}
             {visible && (
-                <View style={styles.dropdown}>
-                    <FlatList
-                        data={options}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                style={styles.option}
-                                onPress={() => handleSelect(item)}
-                            >
-                                <Text style={styles.optionText}>{item}</Text>
-                            </TouchableOpacity>
-                        )}
-                    />
+                <View style={[styles.dropdown, { backgroundColor: colors.backgroundColor }]}>
+                    {options.map((option) => (
+                        <TouchableOpacity key={option} style={styles.option} onPress={() => handleSelect(option)}>
+                            <Text style={[styles.optionText, { color: colors.text }]}>{option}</Text>
+                        </TouchableOpacity>
+                    ))}
                 </View>
             )}
         </View>
@@ -56,19 +42,16 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: colors.text,
         padding: 10,
         borderRadius: 8,
     },
     buttonText: {
-        color: colors.background,
         fontWeight: "bold",
         textAlign: "center",
         marginRight: 6,
     },
     dropdown: {
         marginTop: 8,
-        backgroundColor: colors.background,
         borderRadius: 8,
         paddingVertical: 4,
         shadowColor: "#000",
@@ -78,8 +61,7 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     option: { padding: 10 },
-    optionText: { fontSize: 16, color: "#333" },
-    icon: {
-        marginLeft: 4,
-    },
+    optionText: { fontSize: 16 },
+    icon: { marginLeft: 4 },
 });
+

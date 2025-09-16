@@ -2,15 +2,17 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors } from "../styles";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Card({ title, subtitle, image, onPress, onFavorite, isFavorite }) {
+    const { isDarkMode, toggleTheme, colors } = useTheme(); // Contexto del tema
+
     return (
-        <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
+        <TouchableOpacity style={[styles.card, { backgroundColor: colors.backgroundColor }]} onPress={onPress} activeOpacity={0.8}>
             {image && <Image source={{ uri: image }} style={styles.image} />}
             <View style={styles.content}>
                 <View style={styles.headerRow}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
                     <TouchableOpacity onPress={onFavorite}>
                         <Ionicons
                             name={isFavorite ? "heart" : "heart-outline"}
@@ -19,7 +21,7 @@ export default function Card({ title, subtitle, image, onPress, onFavorite, isFa
                         />
                     </TouchableOpacity>
                 </View>
-                {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                {subtitle && <Text style={[styles.subtitlem, {color: colors.text}]}>{subtitle}</Text>}
             </View>
         </TouchableOpacity>
     );
@@ -27,7 +29,6 @@ export default function Card({ title, subtitle, image, onPress, onFavorite, isFa
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: colors.background,
         borderRadius: 12,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -53,7 +54,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        color: colors.text
     },
     subtitle: {
         fontSize: 14,

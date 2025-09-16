@@ -6,9 +6,13 @@ import { useCharacter } from "../../hooks/useChararcters";
 import { useFavoritos } from "../../context/FavoritosContext";
 import Filter from "../../components/Fitler";
 import Card from "../../components/Card";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Personajes() {
     const router = useRouter();
+
+    const { isDarkMode, toggleTheme, colors } = useTheme(); // Contexto del tema
+
     const [filter, setFilter] = useState("All");
 
     const query = filter === "All" ? "" : `?status=${filter}`;
@@ -29,7 +33,7 @@ export default function Personajes() {
     if (error) return <Text>Error: {error}</Text>;
 
     return (
-        <View style={globalStyles.container}>
+        <View style={[globalStyles.container, {backgroundColor: colors.primary  }]}>
             {/* Filtro */}
             <Filter
                 options={["All", "Alive", "Dead", "unknown"]}
