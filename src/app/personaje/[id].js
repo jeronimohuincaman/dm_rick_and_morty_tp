@@ -2,10 +2,12 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native";
 import { getOneCharacter } from "../../api/characterApi";
-import { globalStyles } from "../../styles";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function PersonajeDetalle() {
     const router = useRouter();
+    const { isDarkMode, toggleTheme, colors } = useTheme(); // Contexto del tema
+
     const { id } = useLocalSearchParams();
 
     const [character, setCharacter] = useState(null);
@@ -27,12 +29,12 @@ export default function PersonajeDetalle() {
     }, [id]);
 
 
-    if (loading) return <ActivityIndicator size="large" style={{ flex: 1, backgroundColor: globalStyles.container.backgroundColor }} />;
+    if (loading) return <ActivityIndicator size="large" style={{ flex: 1, backgroundColor: colors.backgroundColor }} />;
 
-    if (!character) return <Text style={{ backgroundColor: globalStyles.container.backgroundColor }}>No se encontró el personaje</Text>;
+    if (!character) return <Text style={{ backgroundColor: colors.backgroundColor }}>No se encontró el personaje</Text>;
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colors.primary }]}>
             <Image source={{ uri: character.image }} style={styles.image} />
             <Text style={styles.name}>{character.name}</Text>
             <Text>Status: {character.status}</Text>
@@ -44,7 +46,7 @@ export default function PersonajeDetalle() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, alignItems: "center", padding: 16, backgroundColor: globalStyles.container.backgroundColor },
+    container: { flex: 1, alignItems: "center", padding: 16 },
     image: { width: 200, height: 200, borderRadius: 12, marginBottom: 16 },
     name: { fontSize: 22, fontWeight: "bold", marginBottom: 8 },
 });
