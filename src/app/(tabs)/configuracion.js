@@ -1,5 +1,6 @@
 // src/app/(tabs)/configuracion.js
 import React from "react";
+import * as WebBrowser from "expo-web-browser";
 import { View, Text, StyleSheet, Switch, TouchableOpacity, ScrollView, Alert } from "react-native";
 import { useTheme } from "../../context/ThemeContext"; // ajusta la ruta según tu proyecto
 
@@ -8,8 +9,12 @@ export default function Configuracion() {
 
     // Funciones para las acciones de botones
     const borrarDatosDeNavegacion = () => Alert.alert("Navegación", "Función aún no implementada");
-    const openLink = () => console.log("Abrir repositorio");
     const openDev = () => console.log("Abrir información del desarrollador");
+
+    const openLink = async () => {
+        const url = "https://github.com/jeronimohuincaman/dm_rick_and_morty_tp.git";
+        await WebBrowser.openBrowserAsync(url);
+    };
 
     // Componente reutilizable para Sección
     const Section = ({ title, children }) => (
