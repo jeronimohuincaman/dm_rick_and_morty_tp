@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 
 const FavoritosContext = createContext();
 
@@ -18,6 +19,33 @@ function favoritosReducer(state, action) {
 
 export function FavoritosProvider({ children }) {
     const [favoritos, dispatch] = useReducer(favoritosReducer, initialState);
+
+    // Cargar favoritos guardados al iniciar
+    useEffect(() => {
+        const loadFavoritos = async () => {
+            try {
+                const stored = await AsyncStorage.getItem("@favoritos");
+                if (stored) {
+                    dispatch({ type: "SET_FAVORITOS", payload: JSON.parse(stored) });
+                }
+            } catch (error) {
+                console.log("Error al cargar favoritos:", error);
+            }
+        };
+        loadFavoritos();
+    }, []);
+
+    // Guardar favoritos cada vez que cambian
+    useEffect(() => {
+        const saveFavoritos = async () => {
+            try {
+                await AsyncStorage.setItem("@favoritos", JSON.stringify(favoritos));
+            } catch (error) {
+                console.log("Error al guardar favoritos:", error);
+            }
+        };
+        saveFavoritos();
+    }, [favoritos]);
 
     return (
         <FavoritosContext.Provider value={{ favoritos, dispatch }}>
