@@ -98,3 +98,9 @@ Durante el desarrollo de este proyecto aprendimos a:
 - Comisión: 3ro  
 - Profesor/a: Sergio Arraigada  
 - Materia: Desarrollo Móvil
+
+
+## APK
+```url
+https://expo.dev/artifacts/eas/xuvLa4wXR8811xKHb6VebF.aab
+```
