@@ -104,3 +104,7 @@ Durante el desarrollo de este proyecto aprendimos a:
 ```url
     https://expo.dev/artifacts/eas/jYvcu7QjZTrrTWTTBNq1g3.apk
 ```
+
+```url
+    https://expo.dev/accounts/huincamanjeronimo/projects/dm_rick_and_morty_tp/builds/99a82413-01cb-49a6-93c0-e562bdddfb28
+```
