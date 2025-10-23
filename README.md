@@ -102,5 +102,5 @@ Durante el desarrollo de este proyecto aprendimos a:
 
 ## APK
 ```url
-https://expo.dev/artifacts/eas/k4ptybGr7TN5BhpLxK8Daq.apk
+    https://expo.dev/artifacts/eas/jYvcu7QjZTrrTWTTBNq1g3.apk
 ```
